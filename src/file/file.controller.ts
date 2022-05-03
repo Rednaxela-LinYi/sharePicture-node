@@ -16,7 +16,7 @@ export const store = async (
   const { id: userId } = request.user;
 
   // 所属内容
-  const { post: postId } = request.query;
+  const { post: tempPostId } = request.query;
 
   // 文件信息
   const fileInfo = _.pick(request.file, [
@@ -27,6 +27,7 @@ export const store = async (
   ]);
 
   try {
+    let postId = parseInt(tempPostId.toString(), 10);
     // 保存文件信息
     const data = await createFile({
       ...fileInfo,

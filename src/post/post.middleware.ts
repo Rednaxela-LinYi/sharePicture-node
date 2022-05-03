@@ -59,7 +59,7 @@ export const filter = async (
     request.filter = {
       name: 'tagName',
       sql: 'tag.name = ?',
-      param: tag,
+      param: tag as string,
     };
   }
 
@@ -68,7 +68,7 @@ export const filter = async (
     request.filter = {
       name: 'userPublished',
       sql: 'user.id = ?',
-      param: user,
+      param: user as string,
     };
   }
 
@@ -77,7 +77,7 @@ export const filter = async (
     request.filter = {
       name: 'userLiked',
       sql: 'user_like_post.userId = ?',
-      param: user,
+      param: user as string,
     };
   }
 
@@ -91,13 +91,13 @@ export const filter = async (
 export const paginate = (itemsPerPage: number) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     // 当前页码
-    const { page = 1 } = request.query;
+    const { page = 1 as number } = request.query;
 
     // 每页内容数量
     const limit = itemsPerPage || 30;
 
     // 计算出偏移量
-    const offset = limit * (page - 1);
+    const offset = limit * ((page as number) - 1);
 
     // 设置请求中的分页
     request.pagination = { limit, offset };
